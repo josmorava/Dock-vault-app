@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>DocVault</title>
+    <script>
+      (function () {
+        var stored = localStorage.getItem("docvault-theme");
+        var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
+    {% if debug %}
+      <script type="module" src="http://localhost:5173/@vite/client"></script>
+      <script type="module" src="http://localhost:5173/src/main.ts"></script>
+    {% else %}
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'assets/main.css' %}" />
+      <script type="module" src="{% static 'assets/main.js' %}"></script>
+    {% endif %}
+  </head>
+  <body>
+    {% block inertia %}{% endblock %}
+  </body>
+</html>
